@@ -1,0 +1,199 @@
+<svg id="container">
+  <rect id="background" /> 
+  <svg id="clock-container">
+    <image />
+    <image />
+    <image class="clock-doublepoints" />
+    <image />
+    <image />
+  </svg>
+  <use id="date-container" href="#cycleview">
+    <use href="#cycleview-item">
+      <svg id="date1-container">
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+      </svg>  
+    </use>
+    <use href="#cycleview-item">
+      <svg id="date2-container">
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+        <image />
+      </svg>  
+    </use>
+  </use>
+  <svg id="stats-container">
+    <svg id="steps-container" class="stat-container">
+        <rect class="stat-container-background"/>
+        <gradientRect class="stat-container-bar"/>
+        <image class="stat-container-star" />
+        <svg class="stats-icon-container">
+          <circle />
+          <image />
+        </svg>        
+        <svg class="stats-text-container">
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+        </svg>
+    </svg>
+    <svg id="cals-container" class="stat-container">
+        <rect class="stat-container-background"/>
+        <gradientRect class="stat-container-bar"/>
+        <image class="stat-container-star"/>
+        <svg class="stats-icon-container">
+          <circle/>
+          <image/>
+        </svg>
+        <svg class="stats-text-container">
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+        </svg>
+    </svg>
+    <svg id="am-container" class="stat-container">
+        <rect class="stat-container-background"/>
+        <gradientRect class="stat-container-bar"/>
+        <image class="stat-container-star"/>
+        <svg class="stats-icon-container">
+          <circle/>
+          <image/>
+        </svg>
+        <svg class="stats-text-container">
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+        </svg>
+    </svg>
+    <svg id="dist-container" class="stat-container">
+        <rect class="stat-container-background"/>
+        <gradientRect class="stat-container-bar"/>
+        <image class="stat-container-star"/>
+        <svg class="stats-icon-container">
+          <circle/>
+          <image/>
+        </svg>
+        <svg class="stats-text-container">
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+        </svg>
+    </svg>
+    <svg id="elevation-container" class="stat-container">
+        <rect class="stat-container-background"/>
+        <gradientRect class="stat-container-bar"/>
+        <image class="stat-container-star"/>
+        <svg class="stats-icon-container">
+          <circle/>
+          <image/>
+        </svg>
+        <svg class="stats-text-container">
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+            <image />
+        </svg>
+    </svg>
+  </svg>  
+
+  <svg id="battery-bar-container">
+    <gradientRect id="battery-bar-background"
+      gradient-type="linear"
+      gradient-x1="0" gradient-y1="100%-10"
+      gradient-x2="0" gradient-y1="100%-5"
+      gradient-color1="black" gradient-color2="darkred" />
+    <gradientRect id="battery-bar-value"
+      gradient-type="linear"
+      gradient-x1="0" gradient-y1="100%"
+      gradient-x2="0" gradient-y1="100%-6"
+      gradient-color1="yellowgreen" gradient-color2="darkgreen"/>
+  </svg>
+  <svg id="battery-container">
+    <image class="battery-image" />
+    <image x="28"/>
+    <image />
+    <image />
+    <image />
+  </svg>
+  <svg id="hrm-container">
+    <use id="iconHRM" href="#heart-beat" />
+    <svg id="hrm-text-container">
+      <image />
+      <image />
+      <image />
+    </svg>
+  </svg>
+</svg>

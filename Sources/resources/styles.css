@@ -1,0 +1,197 @@
+#container{
+  fill: white;
+}
+#background {
+  width: 100%;
+  height: 100%;
+  fill: black;
+}
+#clock-container {
+  x: 100%-150;
+  y: 50%-50;
+}
+#clock-container image {
+  x:$;
+  height: 50;
+  width: 30;
+}  
+#clock-container .clock-doublepoints{
+  width:25;
+  href:"images/doublepoints.png";
+}
+#date-container {
+  y: 2;
+  height: 40;
+}
+#date-container image{
+  x:$;
+  width: 20;
+  height: 40;
+}
+
+/* Hrm *************************************************************/
+#hrm-container{
+  x:100%-130;
+  y:75%-40;
+}
+#hrm-container #iconHRM {
+  width: 50;
+  height: 50;
+  fill: #FF214A;
+}
+#hrm-container #hrm-text-container{
+  x:50;
+}
+#hrm-container #hrm-text-container image{
+  x:$;
+  width: 25;
+  height: 50;
+}
+
+/* Battery *************************************************************/
+#battery-container{
+  x:100%-128;
+  y:100%-30;  
+  height: 30;
+  width: 100;
+}
+#battery-container image{
+  x:$;
+  width: 24;
+  height: 24;
+}
+#battery-container .battery-image{
+  x: 2;
+  href:"images/battery.png";
+}
+#battery-bar-container{
+  x: 0;
+  y: 100%-4;
+}
+#battery-bar-background{
+  height: 4;
+  width: 100%;
+}
+#battery-bar-value{
+  height: 4;
+  width: 100%;
+}
+
+/* Stats *************************************************************/
+#stats-container{
+  x:0;
+  y:0;
+}
+.stat-container{
+  height: 44;
+  width: 100%-156;
+}
+.stat-container-background{
+  height: 100%;
+  width: 100%;
+}
+.stat-container-background{
+  width: 100%;
+  opacity: 0.5;
+}
+.stat-container-star{
+  x:100%-36;
+  y:4;
+  height: 34;
+  width: 34;
+  fill: gold;
+  href:"images/star.png";
+}
+.stats-icon-container{
+  x:4;
+  y:4;
+  height: 34;
+  width: 34;
+}
+.stats-icon-container circle{
+  cx:50%;
+  cy:50%;
+  r:50%;  
+  fill: black;
+}
+.stats-icon-container image{
+  x:20%;
+  y:20%;
+  height: 60%;
+  width: 60%;
+}  
+
+.stats-text-container {
+  x:40;
+  y:4;
+}
+.stats-text-container image{
+  x:$;
+  width: 18;
+  height: 36;
+}
+
+.stat-container-bar{
+  height: 100%;
+  width: 100%;
+  gradient-type:"linear";
+  gradient-x1:0;
+  gradient-y1:60%;
+  gradient-x2:0;
+  gradient-y2:100%;
+}
+#steps-container .stat-container-bar{
+  gradient-color1:#FF0000;
+  gradient-color2:#8A0808;
+}
+#steps-container rect{
+  fill:#FF0000;
+}
+#steps-container .stats-icon-container image{
+  href:"images/stat_steps_solid_48px.png";
+  fill:#FF0000;
+}
+#cals-container .stat-container-bar{
+  gradient-color1:#FF8000;
+  gradient-color2:#61380B;
+}
+#cals-container rect{
+  fill:#FF8000;
+}
+#cals-container .stats-icon-container image{
+  href:"images/stat_cals_solid_48px.png";
+  fill:#FF8000;
+}
+#am-container .stat-container-bar{
+  gradient-color1:green;
+  gradient-color2:#0B3B2E;
+}
+#am-container rect{
+  fill:green;
+}
+#am-container .stats-icon-container image{
+  href:"images/stat_am_solid_48px.png";
+  fill:green;
+}
+#dist-container .stat-container-bar{
+  gradient-color1:blue;
+  gradient-color2:darkblue;
+}
+#dist-container rect{
+  fill:blue;
+}
+#dist-container .stats-icon-container image{
+  href:"images/stat_dist_solid_48px.png";
+  fill:blue;
+}
+#elevation-container .stat-container-bar{
+  gradient-color1:#FF0080;
+  gradient-color2:#610B38;
+}
+#elevation-container rect{
+  fill:#FF0080;
+}
+#elevation-container .stats-icon-container image{
+  href:"images/stat_floors_solid_48px.png";
+  fill:#FF0080;
+}
