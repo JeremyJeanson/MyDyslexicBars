@@ -17,7 +17,7 @@ It include :
 Let me know if you need more ;)
 
 # Demo
-This clock can be installed on your Ionic or Versa via this link: [Fitbit store](https://gallery.fitbit.com/details/34ae103e-3988-4c8c-87ce-712f9c33fa3d)
+This clock can be installed on your Ionic or Versa via this link: [Fitbit store](https://gallery.fitbit.com/details/b83ed1f9-3562-4f76-8397-4bae9cf9d22d)
 
 # Why?
 I have shared this code to allow developer to make more clocks accessible for dyslexic users.
