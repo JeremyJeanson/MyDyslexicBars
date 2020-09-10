@@ -53,7 +53,7 @@ function setupEvents(): void {
   };
 }
 
-function start(): void {
+export function start(): void {
   if (!watchID) {
     hrm.start();
     getReading();
@@ -61,7 +61,7 @@ function start(): void {
   }
 }
 
-function stop(): void {
+export function stop(): void {
   hrm.stop();
   clearInterval(watchID);
   watchID = null;
