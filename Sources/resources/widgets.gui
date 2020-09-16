@@ -1,5 +1,7 @@
 <svg>
   <defs>
+    <link rel="stylesheet" href="activities.css" />
+    <link rel="stylesheet" href="battery.css" />  
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="device.css" />
     <link rel="import" href="/mnt/sysassets/widgets_common.gui" />
@@ -16,5 +18,30 @@
           repeatCount="indefinite" final="keep" />
       </g>
     </symbol>
+    <symbol id="battery">
+      <g transform="translate(50%,50%)">
+        <image id="battery-icon" x="-50%" y="-50%" />
+        <animateTransform attributeName="transform" attributeType="scale"
+          begin="highlight" from="1" to="0.5"
+          final="keep" dur="0.5"/>
+        <animateTransform attributeName="transform" attributeType="scale"
+          begin="highlight+0.5" from="0.5" to="1.5"
+          final="keep" dur="0.5" final="restore"/>
+      </g>
+    </symbol>
+    <symbol id="star-symbol"> 
+      <g transform="translate(50%,50%)">
+        <section x="-50%" y="-50%" >
+          <image href="images/star.png" fill="gold" height="100%" width="100%" />
+          <image id="border" href="images/star-border.png" fill="black" height="100%" width="100%" />
+        </section>
+        <animateTransform attributeName="transform" attributeType="scale"
+          begin="highlight" end="unload;unhighlight" from="1" to="1.5" dur="0.3"
+          final="keep" />
+        <animateTransform attributeName="transform" attributeType="scale"
+          begin="highlight+0.3" end="unload;unhighlight" from="1.5" to="1" dur="0.1"
+          final="keep" />
+      </g>
+    </symbol>      
   </defs>
 </svg>

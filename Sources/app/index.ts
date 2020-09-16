@@ -1,5 +1,11 @@
 import document from "document";
 import * as util from "./simple/utils";
+import * as font from "./simple/font";
+// Display & AOD
+import * as simpleDisplay from "./simple/display";
+
+// Simpl activities
+import * as simpleActivities from "simple-fitbit-activities";
 
 // import clock from "clock";
 import * as simpleMinutes from "./simple/clock-strings";
@@ -20,14 +26,16 @@ const _dates2Container = document.getElementById("date2-container") as GraphicsE
 const _dates2 = _dates2Container.getElementsByTagName("image") as ImageElement[];
 
 // Hours
-const _cloksContainer = document.getElementById("clock-container") as GraphicsElement;
-const _cloks = document.getElementById("clock-container").getElementsByTagName("image") as ImageElement[];
+const _clocksContainer = document.getElementById("clock-container") as GraphicsElement;
+const _clocks = document.getElementById("clock-container").getElementsByTagName("image") as ImageElement[];
+const _cloksHours = _clocks.slice(0, 2);
+const _cloksMinutes = _clocks.slice(3, 5);
 
 // Battery
 const _batteryValueContainer = document.getElementById("battery-bar-container") as GraphicsElement;
 const _batteryBar = document.getElementById("battery-bar-value") as GradientRectElement;
 const _batteryTextContainer = document.getElementById("battery-container") as GraphicsElement;
-const _batteries = _batteryTextContainer.getElementsByTagName("image") as ImageElement[];
+const _batteries = document.getElementById("battery-text").getElementsByTagName("image");
 
 // Stats
 const _statcontainer = document.getElementById("stats-container") as GraphicsElement;
@@ -52,19 +60,18 @@ const _settings = new Settings();
 // --------------------------------------------------------------------------------
 // Update the clock every seconds
 simpleMinutes.initialize("seconds", (clock) => {
-  // date for screenshots
-  //clock.Date = "jun 23";
+  const folder: font.folder = simpleDisplay.isInAodMode()
+    ? "chars-aod"
+    : "chars";
 
   // Hours
   if (clock.Hours) {
-    _cloks[0].href = util.getImageFromLeft(clock.Hours, 0);
-    _cloks[1].href = util.getImageFromLeft(clock.Hours, 1);
+    font.print(clock.Hours, _cloksHours, folder);
   }
 
   // Minutes
   if (clock.Minutes) {
-    _cloks[3].href = util.getImageFromLeft(clock.Minutes, 0);
-    _cloks[4].href = util.getImageFromLeft(clock.Minutes, 1);
+    font.print(clock.Minutes, _cloksMinutes, folder);
   }
 
   // Date 1
@@ -72,7 +79,7 @@ simpleMinutes.initialize("seconds", (clock) => {
     // Position
     _dates1Container.x = (device.screen.width) - (clock.Date1.length * 20);
     // Values
-    util.display(clock.Date1, _dates1);
+    font.print(clock.Date1, _dates1);
   }
 
   // Date 2
@@ -80,86 +87,41 @@ simpleMinutes.initialize("seconds", (clock) => {
     // Position
     _dates2Container.x = (device.screen.width) - (clock.Date2.length * 20);
     // Values
-    util.display(clock.Date2, _dates2);
+    font.print(clock.Date2, _dates2);
   }
 
   // update od stats
   UpdateActivities();
 });
 
+function setHoursMinutes(folder: font.folder) {
+  // Hours
+  font.print(simpleMinutes.last.Hours + ":" + simpleMinutes.last.Minutes, _clocks, folder);
+}
 // --------------------------------------------------------------------------------
 // Power
 // --------------------------------------------------------------------------------
-import * as batterySimple from "./simple/power-battery";
+import * as batterySimple from "./simple/battery";
 
 // Method to update battery level informations
 batterySimple.initialize((battery) => {
   let batteryString = battery.toString() + "%";
+  // Battery text
+  font.print(batteryString, _batteries);
   // Battery bar
   _batteryBar.width = Math.floor(battery) * device.screen.width / 100;
-
-  // Battery text
-  let max = _batteries.length - 1;
-  for (let i = 0; i < max; i++) {
-    _batteries[i + 1].href = util.getImageFromLeft(batteryString, i);
-  }
 });
-// --------------------------------------------------------------------------------
-// Settings
-// --------------------------------------------------------------------------------
-import * as simpleSettings from "simple-fitbit-settings/app";
-
-simpleSettings.initialize(
-  _settings,
-  (settingsNew: Settings) => {
-    if (!settingsNew) {
-      return;
-    }
-
-    if (settingsNew.showBatteryPourcentage !== undefined) {
-      _batteryTextContainer.style.display = settingsNew.showBatteryPourcentage
-        ? "inline"
-        : "none";
-    }
-
-    if (settingsNew.showBatteryBar !== undefined) {
-      _batteryValueContainer.style.display = settingsNew.showBatteryBar
-        ? "inline"
-        : "none";
-    }
-
-    if (settingsNew.colorBackground !== undefined) {
-      _background.style.fill = settingsNew.colorBackground;
-      _batteryBackground.gradient.colors.c1 = settingsNew.colorBackground;
-      simpleActivities.reset(); // Reset data to force update
-      UpdateActivities(); // For achivement color
-    }
-
-    if (settingsNew.colorForeground !== undefined) {
-      _container.style.fill = settingsNew.colorForeground;
-    }
-
-    if (settingsNew.colorForegroundStats !== undefined) {
-      (document.getElementById("stats-container") as GraphicsElement).style.fill = settingsNew.colorForegroundStats;
-    }
-
-    // Display based on 12H or 24H format
-    if (settingsNew.clockDisplay24 !== undefined) {
-      simpleMinutes.updateClockDisplay24(settingsNew.clockDisplay24);
-    }
-  });
 
 // --------------------------------------------------------------------------------
 // Activity
 // --------------------------------------------------------------------------------
-import * as simpleActivities from "simple-fitbit-activities"
 
 // Init
 simpleActivities.initialize(UpdateActivities);
 
 // Elevation is available
 if (!simpleActivities.elevationIsAvailable()) {
-  _elevationContainer.style.display = "none";
+  util.hide(_elevationContainer);
   const container = document.getElementById("stats-container") as GraphicsElement;
   container.y = 36;
 }
@@ -176,7 +138,7 @@ function UpdateActivities() {
   UpdateActivity(_calsContainer, activities.calories);
 
   // Active minutes
-  UpdateActivity(_amContainer, activities.activeMinutes);
+  UpdateActivity(_amContainer, activities.activeZoneMinutes);
 
   // Disance
   UpdateActivity(_distContainer, activities.distance);
@@ -195,23 +157,23 @@ function UpdateActivity(container: GraphicsElement, activity: simpleActivities.A
   // Text
   // container.x = device.screen.width / 2 + 20 - (achievedString.toString().length * 20);
   let texts = container.getElementsByClassName("stats-text-container")[0].getElementsByTagName("image") as ImageElement[];
-  util.display(achievedString, texts);
+  font.print(achievedString, texts);
 }
 
 function updateActivityBar(container: GraphicsElement, activity: simpleActivities.Activity, appBackgroundColor: string): void {
   const maxWidth = device.screen.width - 156;
   const bar = container.getElementsByClassName("stat-container-bar")[0] as GraphicsElement;
-  const star = container.getElementsByClassName("stat-container-star")[0] as ImageElement;
+  const star = container.getElementsByClassName("stat-container-star")[0] as GraphicsElement;
   const circle = container.getElementsByClassName("stats-icon-container")[0].getElementsByTagName("circle")[0] as CircleElement;
 
   circle.style.fill = appBackgroundColor;
   // Goals ok
   if (activity.goalReached()) {
-    star.style.display = "inline";
+    util.show(star);
     bar.width = maxWidth;
   }
   else {
-    star.style.display = "none";
+    util.hide(star);
     bar.width = activity.asPourcent() * maxWidth / 100;
   }
 }
@@ -238,68 +200,94 @@ simpleHRM.initialize((newValue, bpm, zone, restingHeartRate) => {
   // BPM value display
   if (bpm !== lastBpm) {
     if (bpm > 0) {
-      _hrmContainer.style.display = "inline";
-      let bpmString = bpm.toString();
-      _hrmTexts[0].href = util.getImageFromLeft(bpmString, 0);
-      _hrmTexts[1].href = util.getImageFromLeft(bpmString, 1);
-      _hrmTexts[2].href = util.getImageFromLeft(bpmString, 2);
+      util.show(_hrmContainer);
+      font.print(bpm.toString(), _hrmTexts);
     } else {
-      _hrmContainer.style.display = "none";
+      util.hide(_hrmContainer);
     }
   }
 });
 
 // --------------------------------------------------------------------------------
-// Allways On Display
+// Settings
 // --------------------------------------------------------------------------------
-import { me } from "appbit";
-import { display } from "display";
-import clock from "clock"
+import * as simpleSettings from "simple-fitbit-settings/app";
 
-// does the device support AOD, and can I use it?
-if (display.aodAvailable && me.permissions.granted("access_aod")) {
-  // tell the system we support AOD
-  display.aodAllowed = true;
+simpleSettings.initialize(
+  _settings,
+  (settingsNew: Settings) => {
+    if (!settingsNew) {
+      return;
+    }
 
-  // respond to display change events
-  display.addEventListener("change", () => {
+    if (settingsNew.showBatteryPourcentage !== undefined) {
+      util.setVisibility(_batteryTextContainer, settingsNew.showBatteryPourcentage);
+    }
 
-    // console.info(`${display.aodAvailable} ${display.aodEnabled} ${me.permissions.granted("access_aod")} ${display.aodAllowed} ${display.aodActive}`);
+    if (settingsNew.showBatteryBar !== undefined) {
+      util.setVisibility(_batteryValueContainer, settingsNew.showBatteryBar);
+    }
 
-    // Is AOD inactive and the display is on?
-    if (!display.aodActive && display.on) {
-      clock.granularity = "seconds";
+    if (settingsNew.colorBackground !== undefined) {
+      util.fill(_background, settingsNew.colorBackground);
+      _batteryBackground.gradient.colors.c1 = settingsNew.colorBackground;
+      simpleActivities.reset(); // Reset data to force update
+      UpdateActivities(); // For achivement color
+    }
 
-      // Show elements & start sensors
-      _background.style.display = "inline";
-      if (_settings.showBatteryPourcentage) _batteryTextContainer.style.display = "inline";
-      if (_settings.showBatteryBar) _batteryValueContainer.style.display = "inline";
-      _datesContainer.style.display = "inline";
-      _statcontainer.style.display = "inline";
-      _hrmContainer.style.display = "inline";
+    if (settingsNew.colorForeground !== undefined) {
+      util.fill(_container, settingsNew.colorForeground);
+    }
 
-      // 100%-150
-      _cloksContainer.x = device.screen.width - 150;
+    if (settingsNew.colorForegroundStats !== undefined) {
+      util.fill(
+        document.getElementById("stats-container") as GraphicsElement,
+        settingsNew.colorForegroundStats);
+    }
 
-      // Start sensors
-      simpleHRM.start();
-    } else {
-      clock.granularity = "minutes";
-
-      // Stop sensors
-      simpleHRM.stop();
-
-      // Clock position
-      // 50%-75
-      _cloksContainer.x = (device.screen.width - 150) / 2;
-
-      // Hide elements
-      _background.style.display = "none";
-      _datesContainer.style.display = "none";
-      _batteryTextContainer.style.display = "none";
-      _batteryValueContainer.style.display = "none";
-      _statcontainer.style.display = "none";
-      _hrmContainer.style.display = "none";
+    // Display based on 12H or 24H format
+    if (settingsNew.clockDisplay24 !== undefined) {
+      simpleMinutes.updateClockDisplay24(settingsNew.clockDisplay24);
     }
   });
+
+// --------------------------------------------------------------------------------
+// Allways On Display
+// --------------------------------------------------------------------------------
+simpleDisplay.initialize(onEnteredAOD, onLeavedAOD);
+
+function onLeavedAOD() {
+  setHoursMinutes("chars");
+
+  // Show elements & start sensors
+  _background.style.display = "inline";
+  if (_settings.showBatteryPourcentage) _batteryTextContainer.style.display = "inline";
+  if (_settings.showBatteryBar) _batteryValueContainer.style.display = "inline";
+  _datesContainer.style.display = "inline";
+  _statcontainer.style.display = "inline";
+  _hrmContainer.style.display = "inline";
+
+  // 100%-150
+  _clocksContainer.x = device.screen.width - 150;
+
+  // Start sensors
+  simpleHRM.start();
+}
+
+function onEnteredAOD() {
+  // Stop sensors
+  simpleHRM.stop();
+
+  setHoursMinutes("chars-aod");
+  // Clock position
+  // 50%-75
+  _clocksContainer.x = (device.screen.width - 150) / 2;
+
+  // Hide elements
+  _background.style.display = "none";
+  _datesContainer.style.display = "none";
+  _batteryTextContainer.style.display = "none";
+  _batteryValueContainer.style.display = "none";
+  _statcontainer.style.display = "none";
+  _hrmContainer.style.display = "none";
 }

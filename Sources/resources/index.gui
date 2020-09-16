@@ -55,7 +55,7 @@
     <svg id="steps-container" class="stat-container">
         <rect class="stat-container-background"/>
         <gradientRect class="stat-container-bar"/>
-        <image class="stat-container-star" />
+        <use href="#star-symbol"  class="stat-container-star"/>
         <svg class="stats-icon-container">
           <circle />
           <image />
@@ -78,7 +78,7 @@
     <svg id="cals-container" class="stat-container">
         <rect class="stat-container-background"/>
         <gradientRect class="stat-container-bar"/>
-        <image class="stat-container-star"/>
+        <use href="#star-symbol"  class="stat-container-star"/>
         <svg class="stats-icon-container">
           <circle/>
           <image/>
@@ -101,7 +101,7 @@
     <svg id="am-container" class="stat-container">
         <rect class="stat-container-background"/>
         <gradientRect class="stat-container-bar"/>
-        <image class="stat-container-star"/>
+        <use href="#star-symbol"  class="stat-container-star"/>
         <svg class="stats-icon-container">
           <circle/>
           <image/>
@@ -124,7 +124,7 @@
     <svg id="dist-container" class="stat-container">
         <rect class="stat-container-background"/>
         <gradientRect class="stat-container-bar"/>
-        <image class="stat-container-star"/>
+        <use href="#star-symbol"  class="stat-container-star"/>
         <svg class="stats-icon-container">
           <circle/>
           <image/>
@@ -147,7 +147,7 @@
     <svg id="elevation-container" class="stat-container">
         <rect class="stat-container-background"/>
         <gradientRect class="stat-container-bar"/>
-        <image class="stat-container-star"/>
+        <use href="#star-symbol"  class="stat-container-star"/>
         <svg class="stats-icon-container">
           <circle/>
           <image/>
@@ -182,11 +182,13 @@
       gradient-color1="yellowgreen" gradient-color2="darkgreen"/>
   </svg>
   <svg id="battery-container">
-    <image class="battery-image" />
-    <image x="28"/>
-    <image />
-    <image />
-    <image />
+    <use id="battery-symbol" href="#battery"/>
+    <svg id="battery-text">
+      <image/>
+      <image />
+      <image />
+      <image />
+    </svg>
   </svg>
   <svg id="hrm-container">
     <use id="iconHRM" href="#heart-beat" />
