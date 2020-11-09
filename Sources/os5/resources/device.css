@@ -1,0 +1,59 @@
+/* Stats **********************************/ 
+#stats-container{
+    x:0;
+    y:50%-140;
+}
+.stat-container{
+    y:$+10;
+}
+#steps-container .stats-icon-container{
+    x:15;
+}
+#steps-container .stats-text-container{
+    x:55;
+}
+#cals-container .stats-icon-container{
+    x:8;
+}
+#cals-container .stats-text-container{
+    x:48;
+}
+#am-container .stats-icon-container{
+    x:4;
+}
+#am-container .stats-text-container{
+    x:40;
+}
+#dist-container .stats-icon-container{
+    x:8;
+}
+#dist-container .stats-text-container{
+    x:48;
+}
+#elevation-container .stats-icon-container{
+    x:15;
+}
+#elevation-container .stats-text-container{
+    x:55;
+}
+/* Date and others **********************************/ 
+#date-container{
+    y:25%-48;
+}
+
+#hrm-container{
+    x:100%-150;
+    y:75%-50;
+}
+
+#battery-container{
+  x:100%-150;
+  y:100%-62; 
+}
+
+#battery-bar-container{
+    x: 60;
+    width: 100%-120;
+    y: 100%-10;
+    height: 10;
+  }

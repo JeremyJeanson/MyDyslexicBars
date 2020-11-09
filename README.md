@@ -3,7 +3,7 @@ A really simple and fun. You can select many options from settings.
 It use a font designed to make life easier for dyslexic people.
 This clock is build for fitbit smartwatchs (Ionic, Versa, Versa 2 and Versa Light).
 
-![Ionic screenshot 1](Screenshots/ionic1.png)
+![Ionic screenshot 1](Screenshots/ionic10.png)
 
 # Features
 It include :
